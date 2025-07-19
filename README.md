@@ -4,7 +4,6 @@
 
  - create missing types (for all requests)
  - review
- - containers
  - deploy
  - host
  - document
