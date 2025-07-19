@@ -4,4 +4,5 @@ COPY . /app
 RUN npm install
 RUN npm run build
 RUN npm install -g serve
-CMD ["serve","-s", "build"]
+EXPOSE 80
+CMD ["serve","-s", "-p", "80","build"]
