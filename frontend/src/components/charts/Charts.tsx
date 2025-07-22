@@ -1,22 +1,25 @@
 import qs from "qs";
 import { useLocation } from "react-router";
-import { ChartProps } from "../types/props";
+import { ChartProps } from "../../types/props";
 import { Alert, Grid } from "@mui/material";
 import NumericValue from "./NumericValue";
 import moment from "moment";
-import PieChart from "./PieChart";
-import LineChart from "./LineChart";
+import EventCountByCategoryChart from "./EventCountByCategoryChart";
+import EventsClosedThroughTimeChart from "./EventsClosedThroughTimeChart";
+import { Category } from "../../types/category";
+import { ClosedEventByDayAndCategory, EventCountByCategory } from "../../types/types";
+import "../../styles/charts.css";
 
 const Charts = ({ categories, events, eventsLoaded }: ChartProps) => {
     const location = useLocation();
     const search = qs.parse(location.search.substring(1));
 
-    const mappedCategories: any = {};
+    const mappedCategories: Record<string, Category> = {};
     categories?.forEach(c => {
         mappedCategories[c.id] = c;
     });
 
-    const mappedDays: any = {};
+    const mappedDays: Record<string, number> = {};
     const days = (search.days && +search.days) || 7;
     for (let index = days; index >= 0; index--) {
         const date = moment().subtract(index, "days");
@@ -26,8 +29,8 @@ const Charts = ({ categories, events, eventsLoaded }: ChartProps) => {
     let openEvents = 0;
     let closedEvents = 0;
     const totalEvents = events?.length ?? 1;
-    const eventCountByCategory: any = {};
-    const closedEventByDayAndCategory: any = {};
+    const eventCountByCategory: Record<string, EventCountByCategory> = {};
+    const closedEventByDayAndCategory: Record<string, ClosedEventByDayAndCategory> = {};
     events?.forEach(e => {
         if (!e.closed)
             openEvents++;
@@ -62,7 +65,7 @@ const Charts = ({ categories, events, eventsLoaded }: ChartProps) => {
     });
 
     return (
-        <Grid container columnSpacing={1} rowSpacing={1} padding="20px">
+        <Grid container columnSpacing={1} rowSpacing={1} className="chartContainer">
             {!events?.length && eventsLoaded ? (<Grid size={12}>
                 <Alert
                     variant="outlined"
@@ -82,10 +85,10 @@ const Charts = ({ categories, events, eventsLoaded }: ChartProps) => {
                 </Grid>
             </Grid>
             <Grid size={{ xs: 12, md: 8 }}>
-                <PieChart data={eventCountByCategory} />
+                <EventCountByCategoryChart data={eventCountByCategory} />
             </Grid>
             <Grid size={12}>
-                <LineChart data={closedEventByDayAndCategory} xAxis={Object.keys(mappedDays)} />
+                <EventsClosedThroughTimeChart data={closedEventByDayAndCategory} xAxis={Object.keys(mappedDays)} />
             </Grid>
         </Grid>
     );

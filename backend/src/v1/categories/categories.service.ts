@@ -2,10 +2,11 @@ import { cacheConstants } from "../infrastructure/constants";
 import { Category } from "../infrastructure/models/category";
 import { EONETService } from "../infrastructure/services/eonet";
 import NodeCache from "node-cache";
+import { EONETCategoriesResponse } from "./categories.types";
 
 class CategoriesService extends EONETService {
     cache: NodeCache;
-    
+
     constructor() {
         super();
         this.cache = new NodeCache();
@@ -17,7 +18,7 @@ class CategoriesService extends EONETService {
         if (categories)
             return categories;
 
-        const response = await this.getService().get("/categories");
+        const response = await this.getService().get<EONETCategoriesResponse>("/categories");
         if (response.status !== 200 || !response.data)
             return [];
 

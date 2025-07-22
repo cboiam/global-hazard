@@ -7,6 +7,7 @@ export type Event = {
     categories: string[];
     geometries: Geometry[];
     sources: Source[];
+    summary?: string;
 };
 
 export type Geometry = {

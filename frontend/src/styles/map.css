@@ -1,0 +1,40 @@
+.mapContainer {
+    height: inherit;
+    z-index: 0
+}
+
+.mapMarkerDot {
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+}
+
+.mapMarkerLink {
+    margin-top: 10px;
+    width: 100%;
+}
+
+.mapMarkerButton {
+    width: inherit;
+}
+
+.mapCategoryDot {
+    height: 21px;
+    width: 21px;
+    border-radius: 8px;
+}
+
+.mapCategoryCard {
+    position: fixed;
+    bottom: 30px;
+    right: 5px;
+    padding: 20px;
+    padding-top: 50px;
+}
+
+#main .mapCategoryArrow {
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    width: 40px;
+}

@@ -1,0 +1,33 @@
+.chartContainer {
+    padding: 20px
+}
+
+.chartEventCountByCategoryContainer {
+    padding: 20px;
+    height: 271.5px;
+    padding-right: 20px;
+
+    @media (min-width: 900px) {
+        padding-right: 70px;
+    }
+}
+
+.chartEventsClosedThroughTimeChartContainer {
+    padding: 20px;
+}
+
+.chartNumericValueCount {
+    padding: 20px;
+    width: 100%;
+}
+
+.chartNumericValueCountLabel {
+    width: 80px;
+    height: 80px;
+}
+
+.chartNumericValueGauge {
+    padding: 20px;
+    align-content: end;
+    width: 100%;
+}

@@ -1,8 +1,9 @@
 import { Card, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { PieChart as MuiPieChart } from "@mui/x-charts";
-import { PieChartProps } from "../types/props";
+import { EventCountByCategoryChartProps } from "../../types/props";
+import "../../styles/charts.css";
 
-const PieChart = ({ data }: PieChartProps) => {
+const EventCountByCategoryChart = ({ data }: EventCountByCategoryChartProps) => {
     const theme = useTheme();
     const sm = useMediaQuery(theme.breakpoints.up('sm'));
     const md = useMediaQuery(theme.breakpoints.up('md'));
@@ -19,12 +20,11 @@ const PieChart = ({ data }: PieChartProps) => {
     }
 
     return (
-        <Card style={{ padding: 20, paddingRight: md ? 70 : 20, height: 271.5 }}>
+        <Card className="chartEventCountByCategoryContainer">
             <Typography
                 color="primary"
                 variant="h5"
                 component="div"
-                sx={{ margin: 0 }}
             >
                 Event count by category
             </Typography>
@@ -46,4 +46,4 @@ const PieChart = ({ data }: PieChartProps) => {
     );
 };
 
-export default PieChart;
+export default EventCountByCategoryChart;

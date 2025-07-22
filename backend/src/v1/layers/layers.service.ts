@@ -2,6 +2,7 @@ import { cacheConstants } from "../infrastructure/constants";
 import { Layer } from "../infrastructure/models/layer";
 import { EONETService } from "../infrastructure/services/eonet";
 import NodeCache from "node-cache";
+import { EONETLayersResponse } from "./layers.types";
 
 class LayersService extends EONETService {
     cache: NodeCache;
@@ -12,32 +13,30 @@ class LayersService extends EONETService {
     }
 
     public getLayers = async (categories: string[]): Promise<Layer[]> => {
-        let layers: Layer[] = this.cache.get(cacheConstants.keys.LAYERS);
+        const mappedLayers: Record<string, Layer> = {};
+        const promises = categories.map(c => this.getLayer(c, mappedLayers));
+        await Promise.all(promises);
 
-        if (layers)
-            return layers;
-
-        const mappedLayerNames = [];
-        const promises = categories.map(c => this.getLayer(c, mappedLayerNames));
-        layers = (await Promise.all(promises)).flat();
-        this.cache.set(cacheConstants.keys.LAYERS, layers, cacheConstants.ttl.ONEDAY);
-
-        return layers;
+        return Object.values(mappedLayers);
     }
 
-    private getLayer = async (category: string, mappedLayerNames: string[]): Promise<Layer[]> => {
-        const response = await this.getService().get(`/layers/${category}`);
-        if (response.status !== 200 || !response.data)
-            return [];
+    private getLayer = async (category: string, mappedLayers: Record<string, Layer>): Promise<void> => {
+        const key = `${cacheConstants.keys.LAYERS}-${category}`;
+        let data: EONETLayersResponse = this.cache.get(key);
 
-        const layers = [];
-        response.data.categories[0].layers.forEach(l => {
-            if (mappedLayerNames.includes(l.name))
+        if (!data) {
+            const response = await this.getService().get<EONETLayersResponse>(`/layers/${category}`);
+            if (response.status !== 200 || !response.data)
                 return;
-            mappedLayerNames.push(l.name);
-            layers.push(new Layer(l, category));
+            data = response.data;
+            this.cache.set(key, data, cacheConstants.ttl.ONEDAY);
+        }
+
+        data.categories[0].layers.forEach(l => {
+            if (mappedLayers[l.name])
+                return;
+            mappedLayers[l.name] = new Layer(l, category);
         });
-        return layers;
     }
 }
 

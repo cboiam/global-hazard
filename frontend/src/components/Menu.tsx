@@ -4,10 +4,10 @@ import MapIcon from "@mui/icons-material/Map";
 import ShowChartIcon from "@mui/icons-material/ShowChart";
 import { useLocation, useNavigate } from "react-router";
 import { MenuProps } from "../types/props";
+import "../styles/layout.css";
+import qs from "qs";
 
-const buttonStyle = { borderRadius: "50%", height: 60, width: 60 };
-
-const Menu = ({ visible }: MenuProps) => {
+const Menu = ({ visible, params }: MenuProps) => {
     const location = useLocation();
     const navigate = useNavigate();
     const theme = useTheme();
@@ -17,7 +17,7 @@ const Menu = ({ visible }: MenuProps) => {
     const goTo = (path: string) => {
         navigate({
             pathname: path,
-            search: location.search
+            search: qs.stringify(params)
         });
     };
 
@@ -30,7 +30,7 @@ const Menu = ({ visible }: MenuProps) => {
                 variant="contained"
                 size="large"
                 color="primary"
-                style={buttonStyle}
+                className="menuButton"
                 onClick={() => goTo(filters)}
             >
                 <FilterListIcon />
@@ -39,7 +39,7 @@ const Menu = ({ visible }: MenuProps) => {
                 variant="contained"
                 size="large"
                 color="primary"
-                style={buttonStyle}
+                className="menuButton"
                 onClick={() => goTo("/")}
             >
                 <MapIcon />
@@ -48,7 +48,7 @@ const Menu = ({ visible }: MenuProps) => {
                 variant="contained"
                 size="large"
                 color="primary"
-                style={buttonStyle}
+                className="menuButton"
                 onClick={() => goTo("/charts")}
             >
                 <ShowChartIcon />

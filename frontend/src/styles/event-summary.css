@@ -1,0 +1,19 @@
+.eventSummaryContainer {
+    padding: 0;
+
+    @media (min-width: 600px) {
+        padding: 20px;
+    }
+}
+
+.eventSummaryCard {
+    padding: 20px;
+}
+
+.eventSummaryMap {
+    height: 300px;
+}
+
+.eventSummaryMarkerDot {
+    background-color: red;
+}

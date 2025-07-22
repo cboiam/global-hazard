@@ -3,3 +3,7 @@ export type AppQueryParams = {
     categories?: string;
     ongoing?: "1";
 };
+
+export type EventSummaryParams = {
+    eventId: string;
+};

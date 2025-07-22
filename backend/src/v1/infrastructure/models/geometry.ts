@@ -1,3 +1,4 @@
+import { EONETEventGeometry } from "../../events/events.types";
 
 class Geometry {
     magnitude: number;
@@ -6,7 +7,7 @@ class Geometry {
     type: "Point";
     coordinates: number[];
 
-    constructor(data: any) {
+    constructor(data: EONETEventGeometry) {
         this.magnitude = data.magnitudeValue;
         this.unit = data.magnitudeUnit;
         this.date = data.date;

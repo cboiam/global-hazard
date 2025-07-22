@@ -1,12 +1,13 @@
 import { Stack, Card, Box, Typography } from "@mui/material";
 import { GaugeContainer, GaugeReferenceArc, GaugeValueArc } from "@mui/x-charts";
-import { NumericValueProps } from "../types/props";
+import { NumericValueProps } from "../../types/props";
+import "../../styles/charts.css";
 
 const NumericValue = ({ label, value, total }: NumericValueProps) => (
     <Stack direction="row" spacing={1} width="100%">
-        <Card style={{ padding: 20, width: "100%" }}>
+        <Card className="chartNumericValueCount">
             <Stack alignItems="center" alignContent="center">
-                <Box alignContent="center" justifyItems="center" sx={{ width: "80px", height: "80px" }}>
+                <Box alignContent="center" justifyItems="center" className="chartNumericValueCountLabel">
                     <Typography
                         color="primary"
                         variant="h5"
@@ -24,7 +25,7 @@ const NumericValue = ({ label, value, total }: NumericValueProps) => (
                 </Typography>
             </Stack>
         </Card>
-        <Card style={{ padding: 20, alignContent: "end", width: "100%" }}>
+        <Card className="chartNumericValueGauge">
             <Stack alignContent="center" alignItems="center">
                 {total ? (<GaugeContainer
                     width={80}
