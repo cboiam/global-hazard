@@ -4,7 +4,7 @@ This is an application to show the incidents happening in the world in a user-fr
 
 It uses the data from Nasa EONET API together with NASA GIBS service to get all the incidents and show you the possible map visualizations with the location of each event. 
 
-You can play around with the filters and charts to update the map and find an interesting incident 
+You can play around with the filters and charts to update the map and find an interesting incident. You can then go the event's summary page to see an AI summarized data with links to related contents in the internet.
 
 Access the app through the [link](https://global-hazard.onrender.com/).
 
@@ -14,13 +14,19 @@ Or get your hands dirty on the [api](https://global-hazard-api.onrender.com/).
 
 ---
 
+### Tech Stack
+
+- node (v22.17.0)
+- react (v19.1.0)
+- express (v5.1.0)
+
+---
+
 ### Running the app:
 
 You can either run it on docker or using node
 
 #### Node
-
-The version used for development in this project was the node v22.17.0
 
 First you need to start the backend (make sure to setup your OpenAI Api Key on the environment variables)
 ```sh
